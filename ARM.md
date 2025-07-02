@@ -11,8 +11,15 @@
 
 A processor, also known as a Central Processing Unit (CPU), is the brain of a computer or any computing device. It is the component responsible for executing instructions from programs by performing basic arithmetic, logical, control, and input/output (I/O) operations. It controls the flow of data in a system.
 
+### waht is RISC
 
+RISC (Reduced Instruction Set Computer) is a CPU architecture design.
 
+RISC was developed to improve CPU speed and efficiency.
+
+Earlier CPUs used CISC (Complex Instruction Set Computer), which had many complex instructions but took more clock cycles to execute.
+
+RISC was a simplification approach: Instead of making instructions powerful, make them simple but fast.
 
 
 
