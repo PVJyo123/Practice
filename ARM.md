@@ -1,3 +1,30 @@
+
+### What is ARM?
+```
+- ARM stands for Advanced RISC Machine.
+- It is a family of computer processors and architectures.
+- Developed by ARM Holdings (originally Acorn Computers in the UK).
+- ARM does not manufacture processors, it designs and licenses processor architectures to companies like Apple, Samsung, Qualcomm, etc.
+```
+
+### What is a Processor?
+
+A processor, also known as a Central Processing Unit (CPU), is the brain of a computer or any computing device. It is the component responsible for executing instructions from programs by performing basic arithmetic, logical, control, and input/output (I/O) operations. It controls the flow of data in a system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
 ARM--Advanced RISC Machine
 used for commercial purpose
 appli-----vedio games, modems, mobile phones
@@ -64,3 +91,8 @@ from register bank the data is send to b bus as rd that is (result send to data 
 load---copies data from memory to register
 store--copies data from register to memory 
 in arm any manupation can be only done in the register
+```
+
+
+
+
