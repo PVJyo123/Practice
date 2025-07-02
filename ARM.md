@@ -1,28 +1,57 @@
+### What is a Processor?
+```
+A processor, also known as a Central Processing Unit (CPU), is the brain of a computer or any computing
+device.
+- It is the component responsible for executing instructions from programsby performing basic
+  arithmetic, logical, control, and input/output (I/O) operations.
+- It controls the flow of data in a system.
+
+- A processor runs based on the instruction cycle (fetch-decode-execute-store):
+```
+
+### waht is RISC
+```
+- RISC (Reduced Instruction Set Computer) is a CPU architecture design.
+- RISC was developed to improve CPU speed and efficiency.
+- Earlier CPUs used CISC (Complex Instruction Set Computer), which had many complex instructions but took
+  more clock cycles to execute.
+- RISC was a simplification approach: Instead of making instructions powerful, make them simple but fast.
+```
 
 ### What is ARM?
 ```
 - ARM stands for Advanced RISC Machine.
 - It is a family of computer processors and architectures.
 - Developed by ARM Holdings (originally Acorn Computers in the UK).
-- ARM does not manufacture processors, it designs and licenses processor architectures to companies like Apple, Samsung, Qualcomm, etc.
+- ARM does not manufacture processors; it designs and licenses processor architectures
+  to companies like Apple, Samsung, Qualcomm, etc.
+        -- Apple’s M1, M2, A15 processors → ARM-based.
+        -- Qualcomm Snapdragon processors → ARM-based.
+        -- Samsung Exynos processors → ARM-based.
 ```
 
-### What is a Processor?
+### What Happens If We Don’t Have ARM?
+```
+🔸Phones Would Be Bigger or Battery-Hungry
+ARM processors save power.
 
-A processor, also known as a Central Processing Unit (CPU), is the brain of a computer or any computing device. It is the component responsible for executing instructions from programs by performing basic arithmetic, logical, control, and input/output (I/O) operations. It controls the flow of data in a system.
+Without ARM, phones might need bigger batteries and would not last a full day.
 
-### waht is RISC
+🔸IoT and Smart Devices May Not Exist
+Smart devices like fitness bands, smart bulbs, smart speakers rely on ARM’s small size and efficiency.
 
-RISC (Reduced Instruction Set Computer) is a CPU architecture design.
+Without ARM, many small devices might not even be possible.
 
-RISC was developed to improve CPU speed and efficiency.
+🔸Mobile Performance Would Be Worse
+ARM balances high performance with low power.
 
-Earlier CPUs used CISC (Complex Instruction Set Computer), which had many complex instructions but took more clock cycles to execute.
+Without ARM, mobile devices might use power-hungry processors that generate heat and quickly drain batteries.
 
-RISC was a simplification approach: Instead of making instructions powerful, make them simple but fast.
+🔸 Less Affordable Devices
+ARM designs are licensed cheaply and are easy to produce.
 
-
-
+Without ARM, devices might become more expensive because alternatives could cost more to develop and manufacture.
+```
 
 
 
@@ -56,13 +85,13 @@ conditional execution
 high performace, low code size,low power consumption,low silicon area
 
 based on the barkeley rics m/c
-arn arch----fixed length instruct
+arm arch----fixed length instruct
 supports pipelines concept
 load and store archi-- using registor
 
 it is 32 bit archi(address bus data bus)
   bytes---8bits
-  word----32bits(4bytes)
+  word----32bits(4bytes)(speed to communicate)
   half word--16 bits(2bytes)
 
 ARM's implement 2 types of instruction sets
