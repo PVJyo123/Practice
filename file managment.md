@@ -1,6 +1,6 @@
-```c
- Write a C program to create a new text file and write "Hello, World!" to it?
- 
+
+### Write a C program to create a new text file and write "Hello, World!" to it?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -25,9 +25,9 @@ return;
 }
 close(fd);
 }
-
-2.Develop a C program to open an existing text file and display its contents?
-
+```
+### Develop a C program to open an existing text file and display its contents?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -55,9 +55,9 @@ buf[ret]='\0';
 printf("%s\n",buf);
 close(fd);
 }
-
-3.Implement a C program to create a new directory named "Test" in the current directory?
-
+```
+### Implement a C program to create a new directory named "Test" in the current directory?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -73,9 +73,9 @@ printf("successfully created\n");
 else
 printf("not created\n");
 }
-
-4.Write a C program to check if a file named "sample.txt" exists in the current directory?
-
+```
+### Write a C program to check if a file named "sample.txt" exists in the current directory?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -94,9 +94,9 @@ return;
 printf("file already exists\n");
 close(fd);
 }
-
-5.Develop a C program to rename a file from "oldname.txt" to "newname.txt"?
-
+```
+### Develop a C program to rename a file from "oldname.txt" to "newname.txt"?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -114,9 +114,9 @@ return;
 }
 printf("failed\n");
 }
-
-6.Implement a C program to delete a file named "delete_me.txt"?
-
+```
+### Implement a C program to delete a file named "delete_me.txt"?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -134,9 +134,9 @@ return;
 }
 printf("failed\n");
 }
-
-7.Write a C program to copy the contents of one file to another?
-
+```
+### Write a C program to copy the contents of one file to another?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<unistd.h>
@@ -177,9 +177,9 @@ printf("sucessfully copied\n");
 close(file1);
 close(file2);
 }
-
-8. Develop a C program to move a file from one directory to another?
-
+```
+### Develop a C program to move a file from one directory to another?
+```
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/types.h>
@@ -194,9 +194,9 @@ return;
 }
 printf("failed\n");
 }
-
-9. Implement a C program to list all files in the current directory?
-
+```
+### Implement a C program to list all files in the current directory?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<dirent.h>
@@ -214,9 +214,9 @@ printf("files in the current directory\n");
 while(name=readdir(dir))
  printf("%s\n",name->d_name);
 }
-
-10. Write a C program to get the size of a file named "file.txt"?
-
+```
+### Write a C program to get the size of a file named "file.txt"?
+```
 #include<stdio.h>
 #include<sys/types.h>
 #include<sys/stat.h>
@@ -233,7 +233,8 @@ return;
 }
 printf("size of the file: %ld\n",file.st_size);
 }
-
+```
+```c
 11.Develop a C program to check if a directory named "Test" exists in the current directory?
 
 #include<stdio.h>
