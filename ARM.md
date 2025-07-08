@@ -156,8 +156,8 @@ ARM supports two types of instruction sets:
 # ARM REGISTERS
    ![image](https://github.com/user-attachments/assets/845dc995-f763-461f-b0ca-3f558ebbfb5c)
    
-In ARM, registers like R0, R1, R2, R3,..., R11 are the general purpose registers.
-They are typically used to:
+- In ARM, registers like R0, R1, R2, R3,..., R11 are the general purpose registers.
+- They are typically used to:
 	- Store data (like integers, memory addresses, function parameters).
 	- Pass values between functions.
 	- Perform arithmetic operations.
@@ -314,8 +314,7 @@ The Program Counter (PC) is a special-purpose register that holds the memory add
 | Feature              | Description                               |
 | -------------------- | ----------------------------------------- |
 | Register Name        | CPSR (Current Program Status Register)    |
-| Controls             | Status flags, processor mode, interrupts,
-instruction set |
+| Controls             | Status flags, processor mode, interrupts, instruction set |
 | Key Flags            | N (Negative), Z (Zero), C (Carry), V (Overflow)  |
 | Instruction Set Mode | ARM/Thumb, controlled by T bit           |
 | Interrupt Control    | IRQ/FIQ enable/disable                   |
@@ -338,62 +337,127 @@ instruction set |
 | M\[4:0]    | Mode Bits     | Defines the processor mode                  |
 
 
-Status Reporting:
-The CPSR tells whether the last operation resulted in zero, a negative number, overflow, or carry.
-Mode Control:
-CPSR sets the processor’s operating mode (User, Supervisor, IRQ, etc.).
-M[4:0] refers to the bottom 5 bits (bits 0 to 4) in the CPSR (Current Program Status Register).
-These bits define the current processor mode.
-These bits tell the ARM processor which mode it is operating in.
+**Status Reporting:**
+        The CPSR tells whether the last operation resulted in zero, a negative number, overflow, or carry.
+**Example 1: Zero Result**
+```
+assembly
 
-| Mode Name       | Mode Bits | Description                                      |
-| --------------- | --------- | ------------------------------------------------ |
-| User Mode       | `10000`   | Regular application code (unprivileged)          |
-| FIQ Mode        | `10001`   | Handles fast interrupts                          |
-| IRQ Mode        | `10010`   | Handles standard interrupts                      |
-| Supervisor Mode | `10011`   | OS kernel mode, enters after reset               |
-| Abort Mode      | `10111`   | Handles memory access errors                     |
-| Undefined Mode  | `11011`   | Handles undefined instructions                   |
-| System Mode     | `11111`   | Privileged mode (like User but with full access) |
+MOV R0, #5
+SUBS R1, R0, #5   ; R1 = 5 - 5 = 0
+```
+CPSR flags:
+- Z = 1 (because result is 0)
+- N = 0, C = 1, V = 0
 
+**🔧 Example 2: Negative Result**
+```
+assembly
 
-Interrupt Management:
-It enables or disables interrupt levels via the I (IRQ) and F (FIQ) bits.
-In ARM architecture, the processor can handle two types of hardware interrupts:
-•	IRQ (Normal Interrupt)
-•	FIQ (Fast Interrupt)
-Both are controlled by specific bits in the CPSR register.
-An interrupt is a signal that tells the processor to pause its current task and quickly handle something urgent.
-Type	Full Form	Priority	Usage
-IRQ	Interrupt Request	Lower	General interrupts
-FIQ	Fast Interrupt Request	Higher	Time-critical events
+MOV R0, #5
+SUBS R1, R0, #10   ; R1 = 5 - 10 = -5
+```
+CPSR flags:
+-  Z = 0, V = 0
+- N = 1 (result is negative)
+- C = 0 (borrow occurred)
 
-How it Works:
-•	If the I bit is set (1): IRQs are masked (blocked).
-•	If the I bit is cleared (0): IRQs are enabled (allowed to interrupt).
-•	If the F bit is set (1): FIQs are masked (blocked).
-•	If the F bit is cleared (0): FIQs are enabled (allowed to interrupt).
+**🔧 Example 3: Carry Out (Unsigned Overflow)**
+```
+assembly
 
-Instruction Set State:
+MOV R0, #0xFFFFFFFF
+ADDS R1, R0, #1    ; R1 = 0xFFFFFFFF + 1 = 0x00000000
+```
+CPSR flags:
+
+- Z = 1 (result is 0)
+- C = 1 (carry occurred)
+- N = 0, V = 0
+
+**🔧 Example 4: Signed Overflow**
+```
+assembly
+
+MOV R0, #0x7FFFFFFF   ; Largest positive signed int
+ADDS R1, R0, #1       ; R1 = 0x80000000 → overflow into negative
+```
+CPSR flags:
+- V = 1 (signed overflow)
+- N = 1, Z = 0, C = 0
+	
+**Mode Control:**
+
+- In ARM architecture, the processor can operate in different modes, which control:- what the processor can do, which          registers are accessible, how interrupts are handled.
+- CPSR sets the processor’s operating mode (User, Supervisor, IRQ, etc.).
+- M[4:0] refers to the bottom 5 bits (bits 0 to 4) in the CPSR (Current Program Status Register).
+- These bits define the current processor mode.
+- These bits tell the ARM processor which mode it is operating in.
+
+| Mode Bits (M\[4:0]) | Processor Mode  | Description                      |
+| ------------------- | --------------- | -------------------------------- |
+| `10000` (0x10)      | User Mode       | Unprivileged mode (normal tasks) |
+| `10001` (0x11)      | FIQ Mode        | Fast Interrupt handling mode     |
+| `10010` (0x12)      | IRQ Mode        | Standard Interrupt handling mode |
+| `10011` (0x13)      | Supervisor Mode | OS kernel mode (privileged)      |
+| `10111` (0x17)      | Abort Mode      | Memory fault handling mode       |
+| `11011` (0x1B)      | Undefined Mode  | Handles undefined instructions   |
+| `11111` (0x1F)      | System Mode     | Privileged mode (used in OS)     |
+
+- Bits [4:0] in the CPSR hold the current mode.
+**Example:**
+```
+assembly
+
+CPSR = 0x60000013  ; The mode bits (last 5 bits) are `10011` → Supervisor Mode
+
+```
+---
+
+**Interrupt Management:**
+- An interrupt is a signal that tells the processor to pause its current task and quickly handle something urgent.
+- It enables or disables interrupt levels via the I (IRQ) and F (FIQ) bits.
+- In ARM architecture, the processor can handle two types of hardware interrupts:
+  	- IRQ (Normal Interrupt)
+  	- FIQ (Fast Interrupt)
+- Both are controlled by specific bits in the CPSR register.
+  
+| Term | Full Form              | Purpose                                |
+| ---- | ---------------------- | -------------------------------------- |
+| IRQ  | Interrupt Request      | Regular priority interrupt             |
+| FIQ  | Fast Interrupt Request | High priority, fast response interrupt |
+
+##### How it Works:
+- If the I bit is set (1): IRQs are masked (blocked).
+- If the I bit is cleared (0): IRQs are enabled (allowed to interrupt).
+- If the F bit is set (1): FIQs are masked (blocked).
+- If the F bit is cleared (0): FIQs are enabled (allowed to interrupt).
+---
+
+**Instruction Set State:**
+In ARM architecture, the processor can operate in different instruction set states.
+These states determine which type of instructions the processor will understand and execute.
+
+The CPSR register’s T bit controls this.
 The T bit in CPSR switches between ARM and Thumb instruction sets.
 1. ARM State
-•	32-bit instructions
-•	Full instruction set: Complex, powerful instructions.
-•	PC (Program Counter) usually increases by 4 bytes per instruction.
-•	T bit in CPSR = 0
+- 32-bit instructions
+- Full instruction set: Complex, powerful instructions.
+- PC (Program Counter) usually increases by 4 bytes per instruction.
+- T bit in CPSR = 0
+
 2. Thumb State
-•	16-bit instructions (more compact).
-•	Smaller code size, useful for low-memory systems.
-•	Limited instruction set compared to ARM mode.
-•	PC usually increases by 2 bytes per instruction.
-•	T bit in CPSR = 1
+- 16-bit instructions (more compact).
+- Smaller code size, useful for low-memory systems.
+- Limited instruction set compared to ARM mode.
+- PC usually increases by 2 bytes per instruction.
+- T bit in CPSR = 1
 
-State	Instruction Size	T Bit in CPSR	Purpose
-ARM	32-bit	0	Full feature set
-Thumb	16-bit	1	Compact, faster access
-Jazelle	Java Bytecode	Special mode	Java hardware support
-
-
+| State   | Instruction Size | T Bit in CPSR | Purpose                |
+| ------- | ---------------- | ------------- | ---------------------- |
+| ARM     | 32-bit           | 0             | Full feature set       |
+| Thumb   | 16-bit           | 1             | Compact, faster access |
+| Jazelle | Java Bytecode    | Special mode  | Java hardware support  |
 
 
 
