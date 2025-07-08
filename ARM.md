@@ -135,6 +135,8 @@ in arm any manupation can be only done in the register
 
 
 ```
+![image](https://github.com/user-attachments/assets/845dc995-f763-461f-b0ca-3f558ebbfb5c)
+
 Feature	Explanation
 Name	IP Register (R12)
 Type	temporary register
