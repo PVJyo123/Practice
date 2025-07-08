@@ -134,113 +134,186 @@ in arm any manupation can be only done in the register
 
 
 
-```
+### ARM REGISTERS
+
 ![image](https://github.com/user-attachments/assets/845dc995-f763-461f-b0ca-3f558ebbfb5c)
+```
+In ARM, registers like R0, R1, R2, R3,..., R11 are the general purpose registers.
+They are typically used to:
+	- Store data (like integers, memory addresses, function parameters).
+	- Pass values between functions.
+	- Perform arithmetic operations.
+	- Carry and transfer data.
+```
 
-Feature	Explanation
-Name	IP Register (R12)
-Type	temporary register
-Usage Scope	inside the same function
-Purpose	Temporary storage, scratch data for calculations, address computation, etc.
-Common Use	By compilers for fast local operations or by assembly for temp values
+### Basic example
+  -Generally, In arm we use assembly level language.
+```
+MOV R0, #5    ; Move the value 5 into register R0 (data)
+ADD R1, R0, #3 ; Add 3 to the value in R0, result stored in R1
+```
 
+### INTRA PROCEDURAL CALL(IP):
 
-Feature	Explanation
-Register Number	R13 in ARM
-Stack Direction	Typically full descending (grows downward)
-Key Role	Tracks stack memory for function calls, local variables, return addresses
-Communication Role	Passes data between functions, saves/restores register states
-Automatic Updates	PUSH/POP instructions auto-update SP
+| Feature        | Description                      |
+|----------------|----------------------------------|
+| NAME           |  IP Register (R12)               |
+| TYPE           |   temporary register             |
+| USAGE SCOPE    |   inside the same function       |
+| PURPOSE        |   Temporary storage, scratch data for calculations, address computation, etc.|
+| COMMON USE      |   compilers for fast local operations or by assembly for temp values|
+```
+- Intra-Procedural Call means a call that happens within the
+  same function.
+- It does not leave the current procedure and does not invoke
+  other procedures.
+  
+- Jumps, loops, or internal control flows that happen inside
+  the function boundaries.
+```
 
+**Example:**
+- When doing intra-procedural operations like temporary calculations or internal jumps, the IP register can temporarily hold data.
+  
+```
+ADD R12, R0, R1  ;  Store temp result in IP (R12)
+SUB R2, R12, R3  ;   Use the temp result in further calculation
+```
+* R12 (IP) is used within the function only for temporary storage.
+* It is not saved if another function is called.
+
+## STACK POINTER(SP):
+
+| Feature        | Description                      |
+|----------------|----------------------------------|
+| NAME           |  SP Register (R13)               |
+| DIRECTION      |  Grows downwards                 |
+| KEY ROLE       |  inside the same function        |
+| PURPOSE        |  Tracks stack memory for function calls, local variables, return addresses|
+| AUTOMATIC 
+  UPDATE         |   PUSH/POP instructions auto-update SP|
+```
 The stack is used for:
-•	Storing local variables
-•	Passing function arguments
-•	Saving return addresses
-•	Saving processor state during interrupts or function calls (context switching)
+ •Storing local variables
+ •Passing function arguments
+ •Saving return addresses
+ 
 The SP tells the processor where this stack data is located in memory.
 
 In ARM architecture, the stack is typically full descending, which means:
-•	The stack grows downward (towards lower memory addresses).
-•	The SP points to the last pushed item on the stack.
-What does the Stack Pointer (SP) exactly do?
+ •The stack grows downward (towards lower memory addresses).
+ •The SP points to the last pushed item on the stack.
+```
+
+#### What does the Stack Pointer (SP) exactly do?
+```
 The SP register:
-•	Keeps track of the top of the stack.
-•	Is automatically updated when:
-o	Data is pushed (stored) onto the stack ➜ SP decreases.
-o	Data is popped (retrieved) from the stack ➜ SP increases.
-Push operation (store data)
-PUSH {R0, R1, LR} ; Save registers R0, R1, and Link Register to the stack---SP is automatically decreased.
-Pop operation (retrieve data)
-POP {R0, R1, LR} ; Restore the saved values from the stack---SP is automatically increased.
+•Is automatically updated when:
+     oData is pushed (stored) onto the stack ➜ SP decreases.
+     oData is popped (retrieved) from the stack ➜ SP increases.
 
+- Push operation (store data)
+      PUSH {R0, R1, LR} ; Save registers R0, R1, and Link Register to the stack---SP is automatically decreased.
+- Pop operation (retrieve data)
+      POP {R0, R1, LR} ; Restore the saved values from the stack---SP is automatically increased.
+```
+### LINK REGISTER(LR)
 
-Feature	Explanation
-Purpose	Holds return address during function calls
-Register Name	R14
-Instruction used	BL stores the return address in LR, BX LR returns
-Data communication	LR passes the control flow back to the caller, not direct data like general-purpose registers do.
- 
-It mainly holds the return address when a function (or subroutine) is called.
-LR (Link Register) is like a bookmark to know where to come back after a function is done.
-It helps manage program flow but is not used for data transfer between functions.
-Without LR, the program wouldn’t know how to come back after a function call in ARM.
+| Feature        | Description                      |
+|----------------|----------------------------------|
+| NAME                |   LR Register (R14)               |
+| PURPOSE             |   Holds return address during function calls  |
+| USAGE               |   inside the same function       |
+| PURPOSE             |   BL stores the return address in LR, BX LR returns|
+| DATA COMMOUNICATION |   LR passes the control flow back to the caller, not direct data like general-purpose registers do|
 
-What General-Purpose Registers Do (Data Movement)
-In ARM, registers like R0, R1, R2, R3, etc. are typically used to:
-•	Store data (like integers, memory addresses, function parameters).
-•	Pass values between functions.
-•	Perform arithmetic operations.
-MOV R0, #5    ; Move the value 5 into register R0 (data)
-ADD R1, R0, #3 ; Add 3 to the value in R0, result stored in R1
+``` 
+- It mainly holds the return address when a function (or subroutine) is called.
+- LR is to know where to come back after a function is done.
+- It helps manage program flow but is not used for data transfer between functions.
+- Without LR, the program wouldn’t know how to come back after a function call in ARM.
+```
 
-What the Link Register Does (Control Flow)
-The Link Register (LR) is not used to carry data like general-purpose registers.
-Instead:
-•	It holds the memory address of where the program should go back to after a function finishes.
-•	This is about program flow — it’s like saying:
-“When you are done here, continue from this address.”
-•	LR controls where to go next.
-•	It does not carry or transfer any variable or computation result. It simply tells the CPU:
-“Jump to this location and continue execution.”
+**Different between GPR and LR**
 
-Feature	Details
-Purpose	Track next instruction
-Controls	Program execution flow
-Data Role	Does not carry data
-Affected by	Branch, Jump, Function calls
-Automatic Increment	Usually by 4 bytes per instruction
+| Aspect        | General-Purpose Registers          | Link Register (LR)  |
+| ------------- | ---------------------------------- | ------------------- |
+| Purpose       | Store and transfer **data**        | Store **return address**          |
+| Usage         | Move, add, subtract, etc.          | Manage function calls and returns |
+| Communication | Pass variables, function arguments | Pass the return location          |
+| Example       | `MOV R0, #5`                       | `BL function` → `BX LR`           |
 
+                                                                            
+### PROGRAM COUNTER(PC)
+
+| Feature             | Details                            |
+| ------------------- | ---------------------------------- |
+| Purpose             | Track next instruction             |
+| Controls            | Program execution flow             |
+| Data Role           | Does not carry data                |
+| Affected by         | Branch, Jump, Function calls       |
+| Automatic Increment | Usually by 4 bytes per instruction |
+
+```
 The Program Counter (PC) is a special-purpose register that holds the memory address of the next instruction the CPU will execute.
-In ARM architecture:
-•	The PC tells the CPU where to look next in memory.
-•	After executing one instruction, the PC automatically moves to the next instruction (normally increasing by 4 bytes because each ARM instruction is 4 bytes long in ARM state).
-It keeps track of the instruction flow.
-Example:
-Step	PC Value	Instruction
-1	0x1000	MOV R0, #5
-2	0x1004	ADD R1, R0, #3
-3	0x1008	BX LR
-After executing the instruction at 0x1000, the PC automatically moves to 0x1004 to fetch the next instruction.
-The PC does NOT carry or transfer data like general-purpose registers.
-The PC carries the address of instructions, not data values.
-It controls which instruction is executed next (this is called control flow, not data flow).
+- In ARM architecture:
+   •The PC tells the CPU where to look next in memory.
+   •After executing one instruction, the PC automatically moves to the next     instruction (normally increasing by 4 bytes because each ARM instruction    is 4 bytes long in ARM state).
+- It keeps track of the instruction flow.
+```
+**Example:**
 
-Feature	Description
-Register Name	CPSR (Current Program Status Register)
-Controls	Status flags, processor mode, interrupts, instruction set
-Key Flags	N (Negative), Z (Zero), C (Carry), V (Overflow)
-Instruction Set Mode	ARM/Thumb, controlled by T bit
-Interrupt Control	IRQ/FIQ enable/disable
+| Step | PC Value | Instruction    |
+| ---- | -------- | -------------- |
+| 1    | 0x1000   | MOV R0, #5     |
+| 2    | 0x1004   | ADD R1, R0, #3 |
+| 3    | 0x1008   | BX LR          |
+```
+- After executing the instruction at 0x1000, the PC automatically moves to    0x1004 to fetch the next instruction.
+- The PC does NOT carry or transfer data like general-purpose registers.
+- The PC carries the address of instructions, not data values.
+```
+**Difference between LR and PC**
 
-Bits	Name	Purpose
-N (bit 31)	Negative Flag	Set if the result of an operation is negative
-Z (bit 30)	Zero Flag	Set if the result is zero
-C (bit 29)	Carry Flag	Set if there is a carry/borrow in arithmetic
-V (bit 28)	Overflow Flag	Set if signed overflow occurs
-I (bit 7)	IRQ Disable	Disables IRQ interrupts when set
-F (bit 6)	FIQ Disable	Disables FIQ interrupts when set
-T (bit 5)	Thumb State	1 = Thumb mode, 0 = ARM mode
-M[4:0]	Mode Bits	Defines the processor mode
+| Feature           | Link Register (LR)                                       | Program Counter (PC)                                      |
+| ----------------- | -------------------------------------------------------- | --------------------------------------------------------- |
+| **Register Name** | R14                                | R15      |
+| **Purpose**       | Stores **return address** during function calls          | Stores the **address of the next instruction** to execute |
+| **Role**          | Controls **where to return** after a function            | Controls **current execution location**                   |
+| **Updates By**    | Set automatically by `BL` (Branch with Link) instruction | Updates automatically as each instruction is executed     |
+| **Type of Flow**  | Manages return flow                                 | Manages program flow                                |
+| **Used For**      | Function calls and exceptions                            | Every instruction fetch and execution                     |
+| **Access**        | Can be read/written like other registers                 | Can be read/written but usually updated automatically     |
+| **Example**       | `BL function` stores return address in LR                | PC always holds the current instruction address           |
+
+### CURRENT PROGRAM STATUS REGISTER(CSPR)
+
+| Feature              | Description                               |
+| -------------------- | ----------------------------------------- |
+| Register Name        | CPSR (Current Program Status Register)    |
+| Controls             | Status flags, processor mode, interrupts,
+instruction set |
+| Key Flags            | N (Negative), Z (Zero), C (Carry), V (Overflow)  |
+| Instruction Set Mode | ARM/Thumb, controlled by T bit           |
+| Interrupt Control    | IRQ/FIQ enable/disable                   |
+```
+- When an interrupt come then ARM mode is changed.
+- There are 7 modes in the ARM. User mode, system mode, supervisor mode,      FIQ mode, IRQ mode, abort mode, undefined mode.
+```
+
+**CSPR key fields**
+
+| Bits       | Name          | Purpose                                     |
+| ---------- | ------------- | ------------------------------------------- |
+| N (bit 31) | Negative Flag | Set if the result of an operation is negative |
+| Z (bit 30) | Zero Flag     | Set if the result is zero                   |
+| C (bit 29) | Carry Flag    | Set if there is a carry/borrow in arithmetic|
+| V (bit 28) | Overflow Flag | Set if signed overflow occurs               |
+| I (bit 7)  | IRQ Disable   | Disables IRQ interrupts when set            |
+| F (bit 6)  | FIQ Disable   | Disables FIQ interrupts when set            |
+| T (bit 5)  | Thumb State   | 1 = Thumb mode, 0 = ARM mode                |
+| M\[4:0]    | Mode Bits     | Defines the processor mode                  |
+
 
 Status Reporting:
 The CPSR tells whether the last operation resulted in zero, a negative number, overflow, or carry.
@@ -250,14 +323,16 @@ M[4:0] refers to the bottom 5 bits (bits 0 to 4) in the CPSR (Current Program St
 These bits define the current processor mode.
 These bits tell the ARM processor which mode it is operating in.
 
-Mode Bits (M[4:0])	Processor Mode	Description	
-10000 (0x10)	User Mode	Unprivileged mode (normal tasks)	
-10001 (0x11)	FIQ Mode	Fast Interrupt handling mode	
-10010 (0x12)	IRQ Mode	Standard Interrupt handling mode	
-10011 (0x13)	Supervisor Mode	OS kernel mode (privileged)	
-10111 (0x17)	Abort Mode	Memory fault handling mode	
-11011 (0x1B)	Undefined Mode	Handles undefined instructions	
-11111 (0x1F)	System Mode	Privileged mode (used in OS)	
+| Mode Name       | Mode Bits | Description                                      |
+| --------------- | --------- | ------------------------------------------------ |
+| User Mode       | `10000`   | Regular application code (unprivileged)          |
+| FIQ Mode        | `10001`   | Handles fast interrupts                          |
+| IRQ Mode        | `10010`   | Handles standard interrupts                      |
+| Supervisor Mode | `10011`   | OS kernel mode, enters after reset               |
+| Abort Mode      | `10111`   | Handles memory access errors                     |
+| Undefined Mode  | `11011`   | Handles undefined instructions                   |
+| System Mode     | `11111`   | Privileged mode (like User but with full access) |
+
 
 Interrupt Management:
 It enables or disables interrupt levels via the I (IRQ) and F (FIQ) bits.
