@@ -33,27 +33,23 @@ device.
 ```
 
 ### What Happens If We Don’t Have ARM?
-```
-🔸Phones Would Be Bigger or Battery-Hungry
-ARM processors save power.
+- Phones Would Be Bigger or Battery-Hungry
+  	- ARM processors save power.
+  	- Without ARM, phones might need bigger batteries and would not last a full day.
 
-Without ARM, phones might need bigger batteries and would not last a full day.
+- IoT and Smart Devices May Not Exist
+	- Smart devices like fitness bands, smart bulbs, smart speakers rely on ARM’s small size and efficiency.
+  	- Without ARM, many small devices might not even be possible.
 
-🔸IoT and Smart Devices May Not Exist
-Smart devices like fitness bands, smart bulbs, smart speakers rely on ARM’s small size and efficiency.
+- Mobile Performance Would Be Worse
+	- ARM balances high performance with low power.
+  	- Without ARM, mobile devices might use power-hungry processors that generate heat and quickly drain batteries.
 
-Without ARM, many small devices might not even be possible.
+- Less Affordable Devices
+  	- ARM designs are licensed cheaply and are easy to produce.
+  	- Without ARM, devices might become more expensive because alternatives could cost more to develop and manufacture.
 
-🔸Mobile Performance Would Be Worse
-ARM balances high performance with low power.
-
-Without ARM, mobile devices might use power-hungry processors that generate heat and quickly drain batteries.
-
-🔸 Less Affordable Devices
-ARM designs are licensed cheaply and are easy to produce.
-
-Without ARM, devices might become more expensive because alternatives could cost more to develop and manufacture.
-```
+---
 
 ## General Info
 - ARM is a **32-bit RISC (Reduced Instruction Set Computer)** architecture.
@@ -113,6 +109,7 @@ ARM supports two types of instruction sets:
 ---
 
 ##  Core Components of ARM Architecture
+![image](https://github.com/user-attachments/assets/43ed6dad-4058-4427-be00-80d3d1c4ac13)
 
 ###  Register Bank
 - Stores data for operations
@@ -157,23 +154,22 @@ ARM supports two types of instruction sets:
 
 
 # ARM REGISTERS
-
-![image](https://github.com/user-attachments/assets/845dc995-f763-461f-b0ca-3f558ebbfb5c)
-```
+   ![image](https://github.com/user-attachments/assets/845dc995-f763-461f-b0ca-3f558ebbfb5c)
+   
 In ARM, registers like R0, R1, R2, R3,..., R11 are the general purpose registers.
 They are typically used to:
 	- Store data (like integers, memory addresses, function parameters).
 	- Pass values between functions.
 	- Perform arithmetic operations.
 	- Carry and transfer data.
-```
-
+ 
 ### Basic example
   -Generally, In arm we use assembly level language.
 ```
 MOV R0, #5    ; Move the value 5 into register R0 (data)
 ADD R1, R0, #3 ; Add 3 to the value in R0, result stored in R1
 ```
+---
 
 ### INTRA PROCEDURAL CALL(IP):
 
@@ -184,7 +180,7 @@ ADD R1, R0, #3 ; Add 3 to the value in R0, result stored in R1
 | USAGE SCOPE    |   inside the same function       |
 | PURPOSE        |   Temporary storage, scratch data for calculations, address computation, etc.|
 | COMMON USE      |   compilers for fast local operations or by assembly for temp values|
-```
+
 - Intra-Procedural Call means a call that happens within the
   same function.
 - It does not leave the current procedure and does not invoke
@@ -192,7 +188,7 @@ ADD R1, R0, #3 ; Add 3 to the value in R0, result stored in R1
   
 - Jumps, loops, or internal control flows that happen inside
   the function boundaries.
-```
+
 
 **Example:**
 - When doing intra-procedural operations like temporary calculations or internal jumps, the IP register can temporarily hold data.
@@ -203,6 +199,7 @@ SUB R2, R12, R3  ;   Use the temp result in further calculation
 ```
 * R12 (IP) is used within the function only for temporary storage.
 * It is not saved if another function is called.
+---
 
 ## STACK POINTER(SP):
 
@@ -214,31 +211,32 @@ SUB R2, R12, R3  ;   Use the temp result in further calculation
 | PURPOSE        |  Tracks stack memory for function calls, local variables, return addresses|
 | AUTOMATIC 
   UPDATE         |   PUSH/POP instructions auto-update SP|
-```
+
 The stack is used for:
- •Storing local variables
- •Passing function arguments
- •Saving return addresses
+- Storing local variables
+- Passing function arguments
+- Saving return addresses
  
 The SP tells the processor where this stack data is located in memory.
 
 In ARM architecture, the stack is typically full descending, which means:
- •The stack grows downward (towards lower memory addresses).
- •The SP points to the last pushed item on the stack.
-```
+- The stack grows downward (towards lower memory addresses).
+- The SP points to the last pushed item on the stack.
 
 #### What does the Stack Pointer (SP) exactly do?
-```
+
 The SP register:
-•Is automatically updated when:
-     oData is pushed (stored) onto the stack ➜ SP decreases.
-     oData is popped (retrieved) from the stack ➜ SP increases.
+- Is automatically updated when:
+	- Data is pushed (stored) onto the stack ➜ SP decreases.
+	- Data is popped (retrieved) from the stack ➜ SP increases.
 
 - Push operation (store data)
-      PUSH {R0, R1, LR} ; Save registers R0, R1, and Link Register to the stack---SP is automatically decreased.
+      - PUSH {R0, R1, LR} ; Save registers R0, R1, and Link Register to the stack---SP is automatically decreased.
 - Pop operation (retrieve data)
-      POP {R0, R1, LR} ; Restore the saved values from the stack---SP is automatically increased.
-```
+      - POP {R0, R1, LR} ; Restore the saved values from the stack---SP is automatically increased.
+
+  ---
+  
 ### LINK REGISTER(LR)
 
 | Feature        | Description                      |
@@ -249,12 +247,11 @@ The SP register:
 | PURPOSE             |   BL stores the return address in LR, BX LR returns|
 | DATA COMMOUNICATION |   LR passes the control flow back to the caller, not direct data like general-purpose registers do|
 
-``` 
 - It mainly holds the return address when a function (or subroutine) is called.
 - LR is to know where to come back after a function is done.
 - It helps manage program flow but is not used for data transfer between functions.
 - Without LR, the program wouldn’t know how to come back after a function call in ARM.
-```
+
 
 **Different between GPR and LR**
 
@@ -265,6 +262,7 @@ The SP register:
 | Communication | Pass variables, function arguments | Pass the return location          |
 | Example       | `MOV R0, #5`                       | `BL function` → `BX LR`           |
 
+---
                                                                             
 ### PROGRAM COUNTER(PC)
 
@@ -276,13 +274,14 @@ The SP register:
 | Affected by         | Branch, Jump, Function calls       |
 | Automatic Increment | Usually by 4 bytes per instruction |
 
-```
 The Program Counter (PC) is a special-purpose register that holds the memory address of the next instruction the CPU will execute.
 - In ARM architecture:
-   •The PC tells the CPU where to look next in memory.
-   •After executing one instruction, the PC automatically moves to the next     instruction (normally increasing by 4 bytes because each ARM instruction    is 4 bytes long in ARM state).
+  	- The PC tells the CPU where to look next in memory.
+  	- After executing one instruction, the PC automatically moves to the next
+  	  instruction (normally increasing by 4 bytes because each ARM instruction
+  	  is 4 bytes long in ARM state).
 - It keeps track of the instruction flow.
-```
+
 **Example:**
 
 | Step | PC Value | Instruction    |
@@ -290,11 +289,11 @@ The Program Counter (PC) is a special-purpose register that holds the memory add
 | 1    | 0x1000   | MOV R0, #5     |
 | 2    | 0x1004   | ADD R1, R0, #3 |
 | 3    | 0x1008   | BX LR          |
-```
-- After executing the instruction at 0x1000, the PC automatically moves to    0x1004 to fetch the next instruction.
+
+- After executing the instruction at 0x1000, the PC automatically moves to 0x1004 to fetch the next instruction.
 - The PC does NOT carry or transfer data like general-purpose registers.
 - The PC carries the address of instructions, not data values.
-```
+
 **Difference between LR and PC**
 
 | Feature           | Link Register (LR)                                       | Program Counter (PC)                                      |
@@ -308,7 +307,9 @@ The Program Counter (PC) is a special-purpose register that holds the memory add
 | **Access**        | Can be read/written like other registers                 | Can be read/written but usually updated automatically     |
 | **Example**       | `BL function` stores return address in LR                | PC always holds the current instruction address           |
 
-### CURRENT PROGRAM STATUS REGISTER(CSPR)
+---
+
+#### CURRENT PROGRAM STATUS REGISTER(CSPR)
 
 | Feature              | Description                               |
 | -------------------- | ----------------------------------------- |
@@ -318,11 +319,11 @@ instruction set |
 | Key Flags            | N (Negative), Z (Zero), C (Carry), V (Overflow)  |
 | Instruction Set Mode | ARM/Thumb, controlled by T bit           |
 | Interrupt Control    | IRQ/FIQ enable/disable                   |
-```
-- When an interrupt come then ARM mode is changed.
-- There are 7 modes in the ARM. User mode, system mode, supervisor mode,      FIQ mode, IRQ mode, abort mode, undefined mode.
-```
 
+
+- When an interrupt come then ARM mode is changed.
+- There are 7 modes in the ARM. User mode, system mode, supervisor mode, FIQ mode, IRQ mode, abort mode, undefined mode.
+---
 **CSPR key fields**
 
 | Bits       | Name          | Purpose                                     |
