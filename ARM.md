@@ -1,3 +1,5 @@
+# ARM (Advanced RISC Machine)
+
 ### What is a Processor?
 ```
 A processor, also known as a Central Processing Unit (CPU), is the brain of a computer or any computing
@@ -53,88 +55,108 @@ ARM designs are licensed cheaply and are easy to produce.
 Without ARM, devices might become more expensive because alternatives could cost more to develop and manufacture.
 ```
 
+## General Info
+- ARM is a **32-bit RISC (Reduced Instruction Set Computer)** architecture.
+- Widely used in **commercial products** like:
+  -  Video game consoles  
+  -  Modems  
+  -  Mobile phones  
+- Known for:
+  -  Simplicity of architecture  
+  -  Low power consumption  
+  -  Small silicon area  
+
+---
+
+##  CISC vs RISC Comparison
+
+| Feature            | CISC                                 | RISC                                      |
+|--------------------|---------------------------------------|-------------------------------------------|
+| Speed              | Slower                               | Faster / Competitive                      |
+| Clock Cycles       | One instruction may take **multiple cycles** | One instruction per **clock cycle** |
+| Development Cost   | More complex, expensive              | Simpler, cheaper to develop               |
+
+---
+
+##  RISC Architecture Key Features
+- Large uniform **register files**
+- **Load/store** architecture (data manipulation only in registers)
+- **Simple addressing modes**
+- **Fixed-length** instruction fields
+
+---
+
+##  ARM Architecture plus Enhancements
+- Each instruction controls both **ALU** and **Barrel Shifter**
+- **Auto-increment/decrement** addressing modes
+- **Multiple load/store** support
+- **Conditional execution** of instructions
+- Based on **Berkeley RISC** machine
+
+---
+
+##  ARM Instruction Sets
+ARM supports two types of instruction sets:
+1. **32-bit ARM Instruction Set**
+2. **16-bit Thumb Instruction Set** (improves code density)
+
+---
+
+##  Data Sizes in ARM
+
+| Type        | Size              |
+|-------------|-------------------|
+| Byte        | 8 bits            |
+| Half-word   | 16 bits (2 bytes) |
+| Word        | 32 bits (4 bytes) |
+
+---
+
+##  Core Components of ARM Architecture
+
+###  Register Bank
+- Stores data for operations
+- Connected to **ALU**
+
+###  ALU (Arithmetic Logic Unit)
+- Performs operations (add, subtract, etc.)
+- Works with **Barrel Shifter** for fast execution
+- Result is stored back in the register
+
+###  Barrel Shifter
+- Pre-processes data (shift/rotate left or right)
+- Helps improve instruction speed
+- Connected via **B-Bus**
+
+###  A-Bus & B-Bus
+- **A-Bus**: Direct path to ALU  
+- **B-Bus**: Passes data through the **Barrel Shifter** to ALU
+
+###  Program Counter (PC)
+- Holds address of the **next instruction**
+- Increments after each instruction
+
+###  Instruction Decoder
+- Decodes instructions before execution
+
+###  Data Out Register
+- Sends processed data to memory or peripherals
+
+---
+
+## 🔄 Load vs Store Operations
+
+| Operation | Description                            |
+|-----------|----------------------------------------|
+| **Load**  | Copies data from **memory → register** |
+| **Store** | Copies data from **register → memory** |
+
+>  In ARM, **all manipulations must be done in registers**, not directly on memory.
+
+---
 
 
-
-
-
-
-
-```
-ARM--Advanced RISC Machine
-used for commercial purpose
-appli-----vedio games, modems, mobile phones
-feactures---architecute simplicity
-	    low power conception
-
-cisc-- slower process and each instruction required one clock cycle
-risc-- competitive easy to develop, cheap
-
-architecture
-
-risc-- large uniform register files
-load or store arti
-simple addressing modes
-fixed length instruction fields
-
-enhancement--each inst ctrl the alu and shifter
-auto increment and decrement addressing modes
-multiple load or store
-conditional execution
-
-high performace, low code size,low power consumption,low silicon area
-
-based on the barkeley rics m/c
-arm arch----fixed length instruct
-supports pipelines concept
-load and store archi-- using registor
-
-it is 32 bit archi(address bus data bus)
-  bytes---8bits
-  word----32bits(4bytes)(speed to communicate)
-  half word--16 bits(2bytes)
-
-ARM's implement 2 types of instruction sets
-	1. 32 bit arm instruction set
-	2. 16 bit thumd instruction set
-
-
-
-address register---indicates the address where to send the data
-add increment-- next location
-register bank
-multiplier
-shifter
-ALU --perform operations with the help of barel shifter, in high speed and resukt is stored in the register bank form register bank the data is send out through the b bus and the data out register
-data register
-instruction decoder and control unit -- decodes the instuctions before the exectuin is done
-pc bus-- next instruction to be performed, increment bus
-
-
-registor bank which is connected to ALU has 2 data parts
-1. a bus -- storing the data directly sending data to alu. 
-
-2. b bus -- b bus to go alu via barel sifter which is also called as pre process 
- 
-alu is performing the process 
-the data coming from any of this register is stored in the barel shifter with the help of b bus barel shifter can shift the data left or right or even rotate that is the barel shifer is doing some pre processing.
-
-in this we have 2 registors rm and rn 
-ex add 2 numbers one is send directly to the alu and the second is send to barel shifer so that it perform the any pre process as shifting the left bit or right bit and all that comes to alu from alu the data that is again send to register bank. 
-
-from register bank the data is send to b bus as rd that is (result send to data out) throguth the b bus the data is sent to data out register and next to the data address
-
-load---copies data from memory to register
-store--copies data from register to memory 
-in arm any manupation can be only done in the register
-```
-
-
-
-
-
-
-### ARM REGISTERS
+# ARM REGISTERS
 
 ![image](https://github.com/user-attachments/assets/845dc995-f763-461f-b0ca-3f558ebbfb5c)
 ```
