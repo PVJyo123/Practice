@@ -339,6 +339,7 @@ The Program Counter (PC) is a special-purpose register that holds the memory add
 
 **Status Reporting:**
         The CPSR tells whether the last operation resulted in zero, a negative number, overflow, or carry.
+	
 **Example 1: Zero Result**
 ```
 assembly
