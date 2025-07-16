@@ -108,6 +108,53 @@ ARM supports two types of instruction sets:
 
 ---
 
+## ARM Core Families
+```
+                   ┌────────────────────────────────────┐
+                   │          ARM Core Families         │
+                   └────────────────────────────────────┘
+                                 ▲
+                                 │
+       ┌────────────────────────┼────────────────────────┐
+       │                        │                        │
+ ┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+ │  Cortex-M   │         │  Cortex-R    │         │  Cortex-A   │
+ │ (Microcontroller) │   │ (Real-time)  │         │ (Application)│
+ └─────────────┘         └──────────────┘         └─────────────┘
+       ▲                        ▲                        ▲
+       │                        │                        │
+ ┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+ │ M0 / M0+    │         │ R5 / R7 / R8 │         │ A5 / A7 / A9│
+ │ M3 / M4     │         │              │         │ A15 / A17   │
+ │ M23 / M33   │         │              │         │ A53 / A57   │
+ │ M35P / M55  │                                │ A72 / A73   │
+ │ M85         │                                │ A75 / A76   │
+                                                  │ A77 / A78   │
+                                                  │ X1 / X2     │
+                                                  └─────────────┘
+
+       ┌─────────────────────────────┐
+       │     Neoverse (Infrastructure CPUs)     │
+       └─────────────────────────────┘
+                   ▲
+        ┌────────────┬────────────┬────────────┐
+        │   E-Series │   N-Series │   V-Series │
+        │ (Edge)     │ (Cloud)    │ (High Perf)│
+        └────────────┴────────────┴────────────┘
+```
+
+- Cortex-A: Application processors (smartphones, tablets)
+- Cortex-R: Real-time processors (automotive, industrial)
+- Cortex-M: Microcontrollers (IoT, wearables, sensors)
+- There are three primary lines in the Neoverse portfolio:
+  
+| Family | Focus | Key Features | Target Workloads |
+| ------------------| ---------------------| ----------------- | ----------------------------|
+| Neoverse V-Series | Performance | Out-of-order, high IPC, large caches | AI/ML, cloud workloads |
+| Neoverse N-Series | General Compute | Balanced performance and efficiency | Cloud servers, storage | 
+| Neoverse E-Series | Efficiency & Throughput | In-order, high core count, dense compute | Edge devices, networking appliances |
+
+
 ##  Core Components of ARM Architecture
 ![image](https://github.com/user-attachments/assets/43ed6dad-4058-4427-be00-80d3d1c4ac13)
 
